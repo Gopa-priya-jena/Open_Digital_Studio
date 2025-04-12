@@ -1,0 +1,51 @@
+cmake_minimum_required(VERSION 3.30.0)
+set(CMAKE_CXX_COMPILER /usr/bin/clang++)
+set(CMAKE_C_COMPILER /usr/bin/clang)
+
+# set(CMAKE_CXX_COMPILER /usr/bin/g++)
+# set(CMAKE_C_COMPILER /usr/bin/gcc)
+project(
+    "Open_Digital_Studio"
+    VERSION 1
+    DESCRIPTION "Open_Digital_Studio is a game Engine"
+    LANGUAGES CXX C
+)
+
+set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+set(CMAKE_CXX_FLAGS  "-Werror  -g3")
+include_directories(
+    ${CMAKE_CURRENT_SOURCE_DIR}/Engine/INC
+    ${CMAKE_CURRENT_SOURCE_DIR}/Engine/External
+    ${CMAKE_CURRENT_SOURCE_DIR}/Engine/External/debug_profiler
+        ${CMAKE_CURRENT_SOURCE_DIR}/Engine/External/Third_party/tracy/public
+
+)
+add_subdirectory(Engine)
+
+set(subdirectory_list)
+list(
+    APPEND
+    subdirectory_list
+    ${CMAKE_CURRENT_SOURCE_DIR}/Engine/INC/
+    ${CMAKE_CURRENT_SOURCE_DIR}/Engine/External/debug_profiler/
+)
+
+if(TEST)
+    add_executable(test test/test.cpp  test/bitset.cpp )
+    target_include_directories(test PUBLIC ${subdirectory_list})
+    target_link_libraries(test Open_Digital_Studio_Engine  )
+
+    #target_link_options(test
+    #BEFORE PUBLIC -fsanitize=undefined PUBLIC -fsanitize=address )
+    #
+
+
+else()
+    add_executable(Open_Digital_Studio ${CMAKE_CURRENT_SOURCE_DIR}/APP/MAIN.cpp)
+    target_include_directories(Open_Digital_Studio PUBLIC ${subdirectory_list})
+    target_link_libraries(Open_Digital_Studio Open_Digital_Studio_Engine)
+    #   target_link_options(Open_Digital_Studio
+    #   BEFORE PUBLIC -fsanitize=undefined PUBLIC -fsanitize=address
+    # )
+endif()
