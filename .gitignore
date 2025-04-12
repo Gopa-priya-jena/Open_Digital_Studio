@@ -34,3 +34,6 @@
 # build files
 build
 testbuild
+
+# compile db
+compile_commands.json
