@@ -1,0 +1,25 @@
+# see https://clang.llvm.org/docs/ClangFormatStyleOptions.html
+---
+BasedOnStyle: google
+IndentWidth: 4
+ColumnLimit: 80
+BreakBeforeBraces: Allman
+UseTab: Never
+SortIncludes: false
+PointerAlignment: Left
+IndentBracedNamespace: true
+# The way to wrap ternary operators.
+# Options: Chop, NewLine, SameLine
+TernaryOperatorWrapStyle: Chop # How to handle line breaks for ternary operators.
+AllowShortFunctionsOnASingleLine: false
+AllowShortLoopsOnASingleLine: false
+AlignAfterOpenBracket: Align
+AlignConsecutiveDeclarations: true
+AlignOperands: true
+AllowAllParametersOfDeclarationOnNextLine: true
+AlwaysBreakAfterReturnType: TopLevel
+EmptyLineBeforeAccessModifier: Alway
+AlwaysBreakTemplateDeclarations: Yes
+BinPackParameters: false
+BinPackArguments: false
+KeepEmptyLinesAtTheStartOfBlocks: false
