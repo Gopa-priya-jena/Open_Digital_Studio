@@ -1,3 +1,5 @@
+#if 0
+
 #include <ALLOCATOR/MASTER_ALLOCATOR/MASTER_ALLOCATOR.hpp>
 #include <DATA_STRUCTURE/DATA_STRUCTURE.hpp>
 #include <cstdint>
@@ -11,6 +13,8 @@ MASTER_ALLOCATOR::MASTER_ALLOCATOR()
     auto          complete_info = OS::INFO::OS_complete_info();
     std::uint64_t per_thread_cache;
     // check l3 chae size for per  core
+
+
 
     per_thread_cache =
         complete_info.cpu_info.L3_mem_total / complete_info.cpu_info.cores;
@@ -35,3 +39,4 @@ MASTER_ALLOCATOR::MASTER_ALLOCATOR()
     // ~2GB of 64k
     //
 }
+#endif

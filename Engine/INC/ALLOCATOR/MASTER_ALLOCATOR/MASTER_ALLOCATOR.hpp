@@ -1,3 +1,4 @@
+#if 0
 #include <atomic>
 #include <bitset>
 #include <cstdint>
@@ -38,3 +39,5 @@ public:
   MASTER_ALLOCATOR();
   ~MASTER_ALLOCATOR();
 };
+
+#endif

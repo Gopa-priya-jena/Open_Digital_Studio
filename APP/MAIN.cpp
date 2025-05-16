@@ -7,23 +7,21 @@
 
 #include "OS/OS_INFO.hpp"
 
-void hellow()
-{
-    FUNCTION_PROFILE;
+void hellow() {
+  FUNCTION_PROFILE;
 
-    std::cout << "hellow" << std::endl;
+  std::cout << "hellow" << std::endl;
 }
-int main()
-{
-    hellow();
+int main() {
+  hellow();
 
-    OS::TERMINAL::OS_console_out("HELLOW \n", RED, BLACK, Bold);
-    // OS::OS_Init();
-    OS::INFO::GET_all_HW_info();
-    using namespace DS;
+  OS::TERMINAL::OS_console_out("HELLOW \n", RED, BLACK, Bold);
+  // OS::OS_Init();
+  OS::INFO::GET_all_HW_info();
+  using namespace DS;
 
-    // hellow();
+  // hellow();
 
-    END_LOG
-    return 0;
+  END_LOG
+  return 0;
 }

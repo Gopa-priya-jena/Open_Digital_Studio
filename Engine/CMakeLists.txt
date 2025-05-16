@@ -103,6 +103,6 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/INC/)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/External/debug_profiler/)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/External/Tracy/)
 # Adding subdirectories
-add_subdirectory(External/Third_party)
+# add_subdirectory(External/Third_party)
 target_include_directories(Open_Digital_Studio_Engine PRIVATE ${INCLUDE_DIRS})
 target_link_libraries(Open_Digital_Studio_Engine PRIVATE ${LIBRARIES})

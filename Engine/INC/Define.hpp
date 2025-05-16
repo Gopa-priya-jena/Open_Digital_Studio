@@ -1,4 +1,5 @@
 #define DEBUG 1
+
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32__)
 #define ODS_WINDOWS 1
 #ifndef _WIN64
@@ -10,12 +11,6 @@
 #if defined(__ANDROID__)
 #define ODS_ANDROID 1
 #endif
-#elif defined(__unix__)
-
-#define ODS_UNIX 1
-#elif defined(_POSIX_VERSION)
-// Posix
-#define ODS_POSIX 1
 #elif __APPLE__
 #define ODS_APPLE 1
 #include <TargetConditionals.h>

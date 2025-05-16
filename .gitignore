@@ -33,7 +33,7 @@
 
 # build files
 build
-testbuild
+test_build
 .cache
 
 # compile db
