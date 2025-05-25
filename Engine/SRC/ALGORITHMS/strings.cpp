@@ -52,7 +52,7 @@ void skip_till(std::string_view &str, uint64_t &index, int (*check)(int)) {
     index--;
 }
 std::uint64_t String_To_Bytes(std::string_view Str) {
-  FUNCTION_PROFILE_ARG(Str.data());
+  FUNCTION_PROFILE_ARG(Str);
 
   if (Str.length() == 0)
     return 0;
@@ -151,14 +151,14 @@ std::string_view get_line_with(std::string_view str,
   return {};
 }
 std::string_view getlast_stringwith(char check, std::string_view data) {
-  FUNCTION_PROFILE_ARG(static_cast<unsigned char>(check), data.data());
+  FUNCTION_PROFILE_ARG(check, data);
 
   auto pos = data.rfind(check);
   return (data.substr(pos + 1));
 };
 
 uint64_t getlast_number(std::string_view data, char check) {
-  FUNCTION_PROFILE_ARG(data, static_cast<unsigned char>(check));
+  FUNCTION_PROFILE_ARG(data, check);
 
   auto res = getlast_stringwith(check, data);
   char temp[30];
@@ -171,7 +171,7 @@ uint64_t getlast_number(std::string_view data, char check) {
 }
 
 float getlast_numberf(std::string_view data, char check) {
-  FUNCTION_PROFILE_ARG(data, (char)check);
+  FUNCTION_PROFILE_ARG(data, check);
 
   auto res = getlast_stringwith(check, data);
   char temp[30];

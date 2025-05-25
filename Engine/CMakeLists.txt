@@ -101,10 +101,10 @@ file_list("HEADER FILES ARE" ${HEADER_file})
 
 set(SOURCE_files)
 list(APPEND SOURCE_files ${HEADER_file} ${SOURCE_file})
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/External/Debug_profiler/)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/External/Debug_profiler)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/External/Debug_profiler/inc/)
 # adding External packages
-add_library(Open_Digital_Studio_Engine ${SOURCE_files} )
+add_library(Open_Digital_Studio_Engine ${SOURCE_files})
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/INC/)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/External/Debug_profiler/)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/External/Tracy/)
@@ -113,5 +113,5 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/External/Tracy/)
 target_include_directories(Open_Digital_Studio_Engine PRIVATE ${INCLUDE_DIRS})
 target_link_libraries(
     Open_Digital_Studio_Engine
-    PRIVATE ${LIBRARIES} DEBUG_Profile
+    PRIVATE ${LIBRARIES} DEBUG_Profiler
 )

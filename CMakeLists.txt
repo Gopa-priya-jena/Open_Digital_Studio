@@ -17,11 +17,10 @@ set(CMAKE_CXX_FLAGS "-Werror  -g3")
 include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/Engine/INC
     ${CMAKE_CURRENT_SOURCE_DIR}/Engine/External
-    ${CMAKE_CURRENT_SOURCE_DIR}/Engine/External/debug_profiler
+    ${CMAKE_CURRENT_SOURCE_DIR}/Engine/External/Debug_profiler
     ${CMAKE_CURRENT_SOURCE_DIR}/Engine/External/Third_party/tracy/public
 )
 add_subdirectory(Engine)
-
 set(subdirectory_list)
 list(
     APPEND

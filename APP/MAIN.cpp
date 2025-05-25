@@ -22,6 +22,5 @@ int main() {
 
   // hellow();
 
-  END_LOG
   return 0;
 }
