@@ -13,13 +13,12 @@ project(
 
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-set(CMAKE_CXX_FLAGS  "-Werror  -g3")
+set(CMAKE_CXX_FLAGS "-Werror  -g3")
 include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/Engine/INC
     ${CMAKE_CURRENT_SOURCE_DIR}/Engine/External
     ${CMAKE_CURRENT_SOURCE_DIR}/Engine/External/debug_profiler
-        ${CMAKE_CURRENT_SOURCE_DIR}/Engine/External/Third_party/tracy/public
-
+    ${CMAKE_CURRENT_SOURCE_DIR}/Engine/External/Third_party/tracy/public
 )
 add_subdirectory(Engine)
 
@@ -28,23 +27,25 @@ list(
     APPEND
     subdirectory_list
     ${CMAKE_CURRENT_SOURCE_DIR}/Engine/INC/
-    ${CMAKE_CURRENT_SOURCE_DIR}/Engine/External/debug_profiler/
+    ${CMAKE_CURRENT_SOURCE_DIR}/Engine/External/Debug_profiler/inc/
 )
 
 if(TEST)
-    add_executable(test test/test.cpp  test/bitset.cpp )
+    add_executable(test test/test.cpp test/bitset.cpp)
     target_include_directories(test PUBLIC ${subdirectory_list})
-    target_link_libraries(test Open_Digital_Studio_Engine  )
+    target_link_libraries(test Open_Digital_Studio_Engine DEBUG_Profiler)
 
     #target_link_options(test
     #BEFORE PUBLIC -fsanitize=undefined PUBLIC -fsanitize=address )
     #
-
-
 else()
     add_executable(Open_Digital_Studio ${CMAKE_CURRENT_SOURCE_DIR}/APP/MAIN.cpp)
     target_include_directories(Open_Digital_Studio PUBLIC ${subdirectory_list})
-    target_link_libraries(Open_Digital_Studio Open_Digital_Studio_Engine)
+    target_link_libraries(
+        Open_Digital_Studio
+        Open_Digital_Studio_Engine
+        DEBUG_Profiler
+    )
     #   target_link_options(Open_Digital_Studio
     #   BEFORE PUBLIC -fsanitize=undefined PUBLIC -fsanitize=address
     # )
