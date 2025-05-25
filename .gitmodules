@@ -1,3 +1,6 @@
 [submodule "Engine/External/Third_party/tracy"]
 	path = Engine/External/Third_party/tracy
 	url = https://github.com/wolfpld/tracy.git
+[submodule "Engine/External/ Debug_profiler"]
+	path = Engine/External/ Debug_profiler
+	url = https://github.com/Gopa-priya-jena/DEBUG_profiler.git
