@@ -51,7 +51,7 @@ namespace WINDOW
 // NOTE:  global  monitor variable
 
 std::vector<ODS_Monitor> Monitor_vector;
-unsigned int             current_monitor_index{0};
+unsigned  I32             current_monitor_index{0};
 
 // global window datastucture
 ODS_Window Window_Element_List;
@@ -76,7 +76,7 @@ X11_Display_Server::X11_Display_Server()
 }
 
 //
-unsigned long X11_Display_Server::GetWindowPropertyX11(Window          window,
+ I32   X11_Display_Server::GetWindowPropertyX11(Window          window,
                                                        Atom            property,
                                                        Atom            type,
                                                        unsigned char **value)
@@ -84,8 +84,8 @@ unsigned long X11_Display_Server::GetWindowPropertyX11(Window          window,
     FUNCTION_PROFILE
 
     Atom          actualType;
-    int           actualFormat;
-    unsigned long itemCount, bytesAfter;
+     I32           actualFormat;
+     I32   itemCount, bytesAfter;
 
     XGetWindowProperty(Main_Display,
                        window,
@@ -103,13 +103,13 @@ unsigned long X11_Display_Server::GetWindowPropertyX11(Window          window,
     return itemCount;
 }
 Atom X11_Display_Server::getAtomIfSupported(Atom         *supportedAtoms,
-                                            unsigned long atomCount,
+                                             I32   atomCount,
                                             const char   *atomName)
 {
     FUNCTION_PROFILE
     const Atom atom = XInternAtom(Main_Display, atomName, False);
 
-    for (unsigned long i = 0; i < atomCount; i++)
+    for ( I32   i = 0; i < atomCount; i++)
     {
         if (supportedAtoms[i] == atom) return atom;
     }
@@ -186,7 +186,7 @@ void X11_Display_Server::detectEWMH()
     // It should contain a list of supported EWMH protocol and state atoms
 
     Atom               *supportedAtoms = NULL;
-    const unsigned long atomCount = GetWindowPropertyX11(
+    const  I32   atomCount = GetWindowPropertyX11(
         root, NET_SUPPORTED, XA_ATOM, (unsigned char **)&supportedAtoms);
 
     // See which of the atoms we support that are supported by the WM
@@ -255,7 +255,7 @@ bool X11_Display_Server::init()
 
         context = XUniqueContext();
         // doing dpi settings
-        float xdpi = 96.f, ydpi = 96.f;
+         F32 xdpi = 96.f, ydpi = 96.f;
 
         // NOTE: Basing the scale on Xft.dpi where available should provide the
         // most
@@ -292,7 +292,7 @@ bool X11_Display_Server::init()
 
     ///////////////// check for X input system for advance
     /// input///////////////////////////
-    int major = 0, minor = 0;
+     I32 major = 0, minor = 0;
     {
         if (XQueryExtension(Main_Display,
                             "XInputExtension",
@@ -511,13 +511,13 @@ inline bool modeIsGood(const XRRModeInfo &mi)
     return (mi.modeFlags & RR_Interlace) == 0;
 }
 
-inline int calculateRefreshRate(const XRRModeInfo &mi)
+inline  I32 calculateRefreshRate(const XRRModeInfo &mi)
 {
     FUNCTION_PROFILE
     if (mi.hTotal && mi.vTotal)
     {
-        return round((double)mi.dotClock /
-                     ((double)mi.hTotal * (double)mi.vTotal));
+        return round(( F64  )mi.dotClock /
+                     (( F64  )mi.hTotal * ( F64  )mi.vTotal));
     }
     return 0.0;
 }
@@ -526,25 +526,25 @@ void monitor_Update()
 {
     FUNCTION_PROFILE
 
-    int                 screen_count = 0;
+     I32                 screen_count = 0;
     XineramaScreenInfo *screens =
         XineramaQueryScreens(server.Main_Display, &screen_count);
     XRRScreenResources *screen_resource =
         XRRGetScreenResourcesCurrent(server.Main_Display, server.root);
     RROutput primary = XRRGetOutputPrimary(server.Main_Display, server.root);
-    unsigned int present_monitor = Monitor_vector.size();
+    unsigned  I32 present_monitor = Monitor_vector.size();
     // TODO: this will need bit class
-    // std::uint64_t checked[7]{0, 0, 0, 0, 00, 0, 0};
+    // U64   checked[7]{0, 0, 0, 0, 00, 0, 0};
     // ERROR: code is a erron needs fix
     bool checked[Monitor_vector.size()];
-    // for (unsigned int i = 0; i <= Monitor_vector.size(); i++)
+    // for (unsigned  I32 i = 0; i <= Monitor_vector.size(); i++)
     // {
     //     checked[i] = false;
     // }
 
     // bool    *checked = (bool *)Stack_alloc(sizeof(bool), present_monitor);
     bool changed = false;
-    for (unsigned int i = 0; i < screen_resource->noutput; i++)
+    for (unsigned  I32 i = 0; i < screen_resource->noutput; i++)
     {
         XRROutputInfo *output_info = XRRGetOutputInfo(
             server.Main_Display, screen_resource, screen_resource->outputs[i]);
@@ -555,7 +555,7 @@ void monitor_Update()
             continue;
         }
         bool flag = 0;
-        for (unsigned int j = 0; j < Monitor_vector.size(); j++)
+        for (unsigned  I32 j = 0; j < Monitor_vector.size(); j++)
         {
             if ((!checked[j]) &&
                 (screen_resource->outputs[i] == Monitor_vector[j].X11.output))
@@ -592,7 +592,7 @@ void monitor_Update()
             Monitor_vector.back().X11.output = screen_resource->outputs[i];
             Monitor_vector.back().X11.crtc = output_info->crtc;
 
-            for (int j = 0; j < screen_count; j++)
+            for ( I32 j = 0; j < screen_count; j++)
             {
                 if (screens[j].x_org == crtc_info->x &&
                     screens[j].y_org == crtc_info->y &&
@@ -619,10 +619,10 @@ void monitor_Update()
 
             // Get all available modes
 
-            for (int m = 0; m < output_info->nmode; m++)
+            for ( I32 m = 0; m < output_info->nmode; m++)
             {
                 const XRRModeInfo *mi = nullptr;
-                for (int k = 0; k < screen_resource->nmode; k++)
+                for ( I32 k = 0; k < screen_resource->nmode; k++)
                 {
                     if (screen_resource->modes[k].id == output_info->modes[m])
                     {
@@ -652,7 +652,7 @@ void monitor_Update()
     // removing removed monitors
     if (changed)
     {
-        for (unsigned int i = 0; i < present_monitor; i++)
+        for (unsigned  I32 i = 0; i < present_monitor; i++)
         {
             if (!checked[i])
             {
@@ -675,7 +675,7 @@ void monitor_Update()
         }
 }
 
-bool Get_Gamma_ramp(const unsigned int Monitor_index,
+bool Get_Gamma_ramp(const unsigned  I32 Monitor_index,
                     ODS_Gamma_ramp    *gamma_ramp)
 {
     FUNCTION_PROFILE
@@ -699,7 +699,7 @@ bool Get_Gamma_ramp(const unsigned int Monitor_index,
     return true;
 }
 
-void Set_Gamma_ramp(const unsigned int Monitor_index,
+void Set_Gamma_ramp(const unsigned  I32 Monitor_index,
                     ODS_Gamma_ramp    *gamma_ramp)
 {
     FUNCTION_PROFILE
@@ -735,7 +735,7 @@ void Set_Gamma_ramp(const unsigned int Monitor_index,
 /// TODO: complete window creation and mangment library
 // glx related functions
 //
-bool extensionSupportedGLX(std::string_view *extension, std::uint16_t Size)
+bool extensionSupportedGLX(std::string_view *extension, U16 Size)
 {
     std::string_view extensions =
         glXQueryExtensionsString(server.Main_Display, server.screen);
@@ -760,7 +760,7 @@ bool glxinit()
         OS_console_out("GLX: GLX extension not found", RED, BLACK, Bold);
         return false;
     }
-    int major = 0, minor = 0;
+     I32 major = 0, minor = 0;
     if (!glXQueryVersion(server.Main_Display, &major, &minor))
     {
         // "GLX: Failed to query GLX version");
@@ -791,13 +791,13 @@ bool glxinit()
 inline bool setGLXFrame_Buffer_Config(const ODS_Frame_Buffer_config &fb_config,
                                       GLXFBConfig &GLXfb_config)
 {
-    int          nativeCount{};
+     I32          nativeCount{};
     GLXFBConfig *nativeConfigs = nullptr;
     // some sub  function calls
-    auto GLX_FB_Config_attribute = [&](const int  &fb_index,
-                                       const int &&attrib) -> int
+    auto GLX_FB_Config_attribute = [&](const  I32  &fb_index,
+                                       const  I32 &&attrib) -> int
     {
-        int value;
+         I32 value;
         glXGetFBConfigAttrib(
             server.Main_Display, nativeConfigs[fb_index], attrib, &value);
         return value;
@@ -816,7 +816,7 @@ inline bool setGLXFrame_Buffer_Config(const ODS_Frame_Buffer_config &fb_config,
     ODS_Frame_Buffer_config *usable_config =
         new ODS_Frame_Buffer_config[nativeCount];
 
-    for (int i = 0; i < nativeCount; i++)
+    for ( I32 i = 0; i < nativeCount; i++)
     {
         // Only consider RGBA GLXFBConfigs
         if (!(GLX_FB_Config_attribute(i, GLX_RENDER_TYPE) & GLX_RGBA_BIT))
@@ -829,7 +829,7 @@ inline bool setGLXFrame_Buffer_Config(const ODS_Frame_Buffer_config &fb_config,
         }
 
         if (GLX_FB_Config_attribute(i, GLX_DOUBLEBUFFER) !=
-            desired->doublebuffer)
+            desired-> F64  buffer)
             continue;
 
         if (desired->transparent)
@@ -877,7 +877,7 @@ inline bool selectvisualGLX(const ODS_Window_config         &Win_config,
                             const ODS_Frame_Buffer_config   &fb_config,
                             const ODS_Opengl_Context_Config &opengl_config,
                             Visual                         **visual,
-                            int                             &depth)
+                             I32                             &depth)
 {
     GLXFBConfig  native;
     XVisualInfo *result;
@@ -921,7 +921,7 @@ bool Create_Window_X11(const GRAPHICS_API_Flags       api,
     assert(Feature_available.server_init);
 
     Visual *visual = nullptr;
-    int     depth;
+     I32     depth;
     auto    setvisual_depth = [&]()
     {
         if (!visual)

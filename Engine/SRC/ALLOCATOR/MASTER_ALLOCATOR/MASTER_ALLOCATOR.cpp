@@ -11,7 +11,7 @@ MASTER_ALLOCATOR::MASTER_ALLOCATOR()
 {
     // collect info about cpu  and strorage
     auto          complete_info = OS::INFO::OS_complete_info();
-    std::uint64_t per_thread_cache;
+    U64   per_thread_cache;
     // check l3 chae size for per  core
 
 
@@ -21,7 +21,7 @@ MASTER_ALLOCATOR::MASTER_ALLOCATOR()
 
     LOG(per_thread_cache);
     per_thread_cache *= 20;
-    std::uint16_t total_allocations =
+    U16 total_allocations =
         complete_info.cpu_info.cores * complete_info.cpu_info.thread_per_core;
     // shared memory ( for threads on thwe ame core) 1 ~ thread_per_core_mb
 

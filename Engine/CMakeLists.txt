@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.30.0)
+cmake_minimum_required(VERSION 4.0.0)
 project(
     "Open_Digital_Studio_Engine"
     VERSION 1
@@ -7,11 +7,10 @@ project(
 )
 
 # set compilation option
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-set(CMAKE_CXX_FLAGS "-Wall -g")
-# set(CMAKE_CXX_FLAGS_RELEASE_INIT "-Wall -glldb")
-# set(CMAKE_BUILD_TYPE Debug)
+set(CMAKE_CXX_EXTENSIONS ON)
 
 # some function that helps in devlopment proceess
 function(file_list NAME)
@@ -107,7 +106,6 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/External/Debug_profiler/inc/)
 add_library(Open_Digital_Studio_Engine ${SOURCE_files})
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/INC/)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/External/Debug_profiler/)
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/External/Tracy/)
 # Adding subdirectories
 # add_subdirectory(External/Third_party)
 target_include_directories(Open_Digital_Studio_Engine PRIVATE ${INCLUDE_DIRS})

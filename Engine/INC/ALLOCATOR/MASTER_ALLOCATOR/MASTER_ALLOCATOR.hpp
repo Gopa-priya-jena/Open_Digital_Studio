@@ -6,13 +6,13 @@
 // usage  to keep collection of  pointer of same size
 
 struct Pointer_List {
-  std::uint64_t SIZE;
+  U64   SIZE;
   void *Pointers[];
 };
 // thread allocation  memory
 
 struct Thread_Cache_memory {
-  std::uint64_t Allocated, free;
+  U64   Allocated, free;
   // alocation list i think a cpu an have at most 512 cores and 2 threads per
   // core, i will use 4 threads per core
   std::atomic<std::bitset<2048>> Allocation_list;
@@ -27,7 +27,7 @@ struct Arena_Memory_List {
 class MASTER_ALLOCATOR {
   Thread_Cache_memory *Thread_Cache;
 
-  std::uint64_t calc_member_size();
+  U64   calc_member_size();
   void initializse_member_info();
   void Thread_Cache_allocate();
 

@@ -1,14 +1,14 @@
-#! /usr/bin/bash
+#!/usr/bin/bash
 
 clear
+cd build_linux/
+echo -e "\n \n \n  entering build dir \n \n \n "
+echo -e "\n \n \n ========================= RUNNING NINJA ===================== \n \n \n"
 
-cd build/
-rm Open_Digital_Studio
+if cmake --build .; then
+  clear
+  echo -e "\n \n \n COMPILATION SUCCEED \n \n \n"
+  echo -e "\n \n \n RUNNING APP \n \n \n"
 
-cmake ..
-echo "===========================================running make ======================================="
-
-make -j 512
-mv compile_commands.json ..
-
-./Open_Digital_Studio
+  ./Open_Digital_Studio
+fi

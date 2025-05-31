@@ -20,7 +20,7 @@ void OS_console_out(std::string_view str,
 
     std::cout << std::format("{}[{};{}{};{};{};{}{};{};{}m{}{}[0m",
                              Escape,
-                             static_cast<int>(type),
+                             static_cast<I32>(type),
                              FOREGROUND,
                              Foreground.R,
                              Foreground.G,

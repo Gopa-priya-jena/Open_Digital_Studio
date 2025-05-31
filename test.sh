@@ -1,16 +1,28 @@
 #! /bin/bash
+
+#!/bin/bash
 clear
-cd test_build/
-# rm -rf CMakeFiles cmake_install.cmake CMakeCache.txt LOG.txt Makefile test
+rm -rf test_build_linux/
+mkdir test_build_linux && cd test_build_linux/
+echo -e "\n \n \n created directory build and entering\n \n \n "
+echo -e "\n \n \n ========================= RUNNING CMAKE ================================== \n \n \n"
 
-echo "created directory build and entering "
+if cmake -DCMAKE_BUILD_TYPE=DEBUG -DTEST=ON ..; then
+  clear
+  echo -e " \n \n \n CMAKE SUCCEED \n \n \n"
 
-echo "================================================================================running cmake========================================================================="
+  mv compile_commands.json ..
+  echo -e "\n \n \n ========================= RUNNING MAKE ===================== \n \n \n"
 
-if cmake -DTEST=ON ..; then
-  # mv compile_commands.json ..
-  make -j 512 &&
-    echo "================================================================================make=========================================================================" && ./test
+  if make -j 512; then
+    clear
+    echo -e "\n \n \n COMPILATION SUCCEED \n \n \n"
+    echo -e "\n \n \n RUNNING APP \n \n \n"
+
+    ./Open_Digital_Studio
+  fi
 else
+
+  echo "CMAKE FAILED"
   exit 1
 fi

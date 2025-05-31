@@ -1,6 +1,6 @@
-cmake_minimum_required(VERSION 3.30.0)
-set(CMAKE_CXX_COMPILER /usr/bin/clang++)
-set(CMAKE_C_COMPILER /usr/bin/clang)
+cmake_minimum_required(VERSION 4.0.0)
+# set(CMAKE_CXX_COMPILER /usr/bin/clang++)
+# set(CMAKE_C_COMPILER /usr/bin/clang)
 
 # set(CMAKE_CXX_COMPILER /usr/bin/g++)
 # set(CMAKE_C_COMPILER /usr/bin/gcc)
@@ -13,12 +13,11 @@ project(
 
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-set(CMAKE_CXX_FLAGS "-Werror  -g3")
+# set(CMAKE_CXX_FLAGS "-Werror  -g3")
 include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/Engine/INC
     ${CMAKE_CURRENT_SOURCE_DIR}/Engine/External
     ${CMAKE_CURRENT_SOURCE_DIR}/Engine/External/Debug_profiler
-    ${CMAKE_CURRENT_SOURCE_DIR}/Engine/External/Third_party/tracy/public
 )
 add_subdirectory(Engine)
 set(subdirectory_list)

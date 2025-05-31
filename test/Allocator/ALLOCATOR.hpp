@@ -12,14 +12,14 @@ class arena_allocator
 class STACK_Allocator
 {
     // make per thread specific
-    std::uint32_t Core_id;
-    std::uint8_t  thread_id;
+    U32   Core_id;
+    U8  thread_id;
 
    public:
     STACK_Allocator();
     ~STACK_Allocator();
 
-    std::uint8_t* Allocate(std::uint32_t size);
+     U8 * Allocate( U32  size);
 
-    void Deallocate(std::uint8_t* ptr);
+    void Deallocate( U8 * ptr);
 };

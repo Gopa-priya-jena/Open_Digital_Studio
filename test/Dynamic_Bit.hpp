@@ -4,7 +4,7 @@
 #include <Compiler_Intrinsics.hpp>
 #include <cstdint>
 #include <tuple>
-typedef std::uint64_t BIT_SET;
+typedef U64   BIT_SET;
 // optimization for allocator
 //  this is used too dermine  the type of
 // space  usage
@@ -33,23 +33,23 @@ enum class Destructor : short
 };
 
 /// these are Compiler_Intrinsics functions and can be replaced
-constexpr std::uint8_t BitScanForward_no_intrinsic(std::uint64_t data)
+constexpr  U8 BitScanForward_no_intrinsic( U64   data)
 {
     for (auto i = 0; i < 64; i++, data >>= 1)
         if ((data & 0X1)) return i;
     return 0;
 }
 
-constexpr std::uint8_t BitScanReverse_no_intrinsic(std::uint64_t data)
+constexpr  U8 BitScanReverse_no_intrinsic( U64   data)
 {
     data >>= 1;
     for (auto i = 1; i < 63; i++, data >>= 1)
         if (data == 0) return i;
     return 0;
 }
-constexpr std::uint8_t POPCOUNT_no_intrinsic(std::uint64_t data)
+constexpr  U8 POPCOUNT_no_intrinsic( U64   data)
 {
-    std::uint8_t result{0};
+     U8 result{0};
     while (data != 0)
     {
         data = data & (data - 1);
@@ -57,22 +57,22 @@ constexpr std::uint8_t POPCOUNT_no_intrinsic(std::uint64_t data)
     }
     return result;
 }
-inline constexpr bool PARITY_no_intrinsic(std::uint8_t data)
+inline constexpr bool PARITY_no_intrinsic( U8 data)
 {
     data = (data & ~0xF) ^ (data << 4);
     data = (data & ~0x3F) ^ (data << 2);
     data = (data & ~0x7F) ^ (data << 1);
     return (data == 0x80);
 }
-inline constexpr bool PARITY_no_intrinsic(std::uint64_t data)
+inline constexpr bool PARITY_no_intrinsic( U64   data)
 {
     data = (data & ~0xFFFFFFFF) ^ (data << 32);
     data = (data & ~0xFFFFFFFFFFFF) ^ (data << 16);
     data = (data & ~0xFFFFFFFFFFFFFF) ^ (data << 8);
-    return PARITY_no_intrinsic(std::uint8_t(data));
+    return PARITY_no_intrinsic( U8 (data));
 }
 
-inline constexpr bool PARITY(std::uint8_t data)
+inline constexpr bool PARITY( U8 data)
 {
 #if (GCC | CLANG)
     return !__builtin_parity(data);
@@ -80,7 +80,7 @@ inline constexpr bool PARITY(std::uint8_t data)
     PARITY_no_intrinsic(data);
 #endif
 }
-inline constexpr bool PARITY(std::uint16_t data)
+inline constexpr bool PARITY( U16  data)
 {
 #if (GCC | CLANG)
     return !__builtin_parity(data);
@@ -88,7 +88,7 @@ inline constexpr bool PARITY(std::uint16_t data)
     PARITY_no_intrinsic(data);
 #endif
 }
-inline constexpr bool PARITY(std::uint32_t data)
+inline constexpr bool PARITY( U32  data)
 {
 #if (GCC | CLANG)
     return !__builtin_parityl(data);
@@ -96,7 +96,7 @@ inline constexpr bool PARITY(std::uint32_t data)
     PARITY_no_intrinsic(data);
 #endif
 }
-inline constexpr bool PARITY(std::uint64_t data)
+inline constexpr bool PARITY( U64   data)
 {
 #if (GCC | CLANG)
     return !__builtin_parityll(data);
@@ -105,7 +105,7 @@ inline constexpr bool PARITY(std::uint64_t data)
 #endif
 }
 
-inline constexpr std::uint8_t BitScanForward(std::uint8_t data)
+inline constexpr  U8 BitScanForward( U8 data)
 {
 #if (GCC | CLANG)
     return __builtin_ctz(data);
@@ -117,7 +117,7 @@ inline constexpr std::uint8_t BitScanForward(std::uint8_t data)
     BitScaneForward_no_intrinsic(data);
 #endif
 }
-inline constexpr std::uint8_t BitScanForward(std::uint16_t data)
+inline constexpr  U8 BitScanForward( U16  data)
 {
 #if (GCC | CLANG)
     return __builtin_ctz(data);
@@ -129,7 +129,7 @@ inline constexpr std::uint8_t BitScanForward(std::uint16_t data)
     BitScaneForward_no_intrinsic(data);
 #endif
 }
-inline constexpr std::uint8_t BitScanForward(std::uint32_t data)
+inline constexpr  U8 BitScanForward( U32  data)
 {
 #if (GCC | CLANG)
     return __builtin_ctzl(data);
@@ -141,7 +141,7 @@ inline constexpr std::uint8_t BitScanForward(std::uint32_t data)
     BitScaneForward_no_intrinsic(data);
 #endif
 }
-inline constexpr std::uint8_t BitScanForward(std::uint64_t data)
+inline constexpr  U8 BitScanForward( U64   data)
 {
 #if (GCC | CLANG)
     return __builtin_ctzll(data);
@@ -153,7 +153,7 @@ inline constexpr std::uint8_t BitScanForward(std::uint64_t data)
     BitScaneForward_no_intrinsic(data);
 #endif
 }
-inline constexpr std::uint8_t BitScanReverse(std::uint8_t data)
+inline constexpr  U8 BitScanReverse( U8 data)
 {
 #if (GCC | CLANG)
     return __builtin_clz(data);
@@ -165,7 +165,7 @@ inline constexpr std::uint8_t BitScanReverse(std::uint8_t data)
     BitScanReverse_no_intrinsic(data);
 #endif
 }
-inline constexpr std::uint8_t BitScanReverse(std::uint16_t data)
+inline constexpr  U8 BitScanReverse( U16  data)
 {
     return __builtin_clz(data);
 
@@ -180,7 +180,7 @@ inline constexpr std::uint8_t BitScanReverse(std::uint16_t data)
 #endif
 }
 
-inline constexpr std::uint8_t BitScanReverse(std::uint32_t data)
+inline constexpr  U8 BitScanReverse( U32  data)
 {
 #if (GCC | CLANG)
     return __builtin_clzl(data);
@@ -192,7 +192,7 @@ inline constexpr std::uint8_t BitScanReverse(std::uint32_t data)
     BitScanReverse_no_intrinsic(data);
 #endif
 }
-inline constexpr std::uint8_t BitScanReverse(std::uint64_t data)
+inline constexpr  U8 BitScanReverse( U64   data)
 {
 #if (GCC | CLANG)
     return __builtin_clzll(data);
@@ -205,7 +205,7 @@ inline constexpr std::uint8_t BitScanReverse(std::uint64_t data)
 #endif
 }
 
-inline constexpr std::uint8_t POPCOUNT(std::uint8_t data)
+inline constexpr  U8 POPCOUNT( U8 data)
 {
 #if (GCC | CLANG)
     return __builtin_popcount(data);
@@ -215,7 +215,7 @@ inline constexpr std::uint8_t POPCOUNT(std::uint8_t data)
     POPCOUNT_no_intrinsic(data);
 #endif
 }
-inline constexpr std::uint8_t POPCOUNT(std::uint16_t data)
+inline constexpr  U8 POPCOUNT( U16  data)
 {
 #if (GCC | CLANG)
     return __builtin_popcount(data);
@@ -226,7 +226,7 @@ inline constexpr std::uint8_t POPCOUNT(std::uint16_t data)
 #endif
 }
 
-inline constexpr std::uint8_t POPCOUNT(std::uint32_t data)
+inline constexpr  U8 POPCOUNT( U32  data)
 {
 #if (GCC | CLANG)
     return __builtin_popcountl(data);
@@ -237,7 +237,7 @@ inline constexpr std::uint8_t POPCOUNT(std::uint32_t data)
 #endif
 }
 
-inline constexpr std::uint8_t POPCOUNT(std::uint64_t data)
+inline constexpr  U8 POPCOUNT( U64   data)
 {
 #if (GCC | CLANG)
     return __builtin_popcountll(data);
@@ -249,32 +249,32 @@ inline constexpr std::uint8_t POPCOUNT(std::uint64_t data)
 }
 // some bitmask making functions these are for grnaral bit utility in compile
 // time
-consteval unsigned long long CompTime_GET_BIT(std::uint64_t position)
+consteval unsigned long long CompTime_GET_BIT( U64   position)
 {
     return (1ULL << position);
 }
 consteval unsigned long long CompTime_SET_BIT(unsigned long long Mask,
-                                              std::uint64_t      position)
+                                              U64        position)
 {
     return (Mask | (1ULL << position));
 }
 ////// for general bitset mmanipulation
 
-constexpr std::uint64_t Bits_to_Bytes(std::uint64_t Bits)
+constexpr U64   Bits_to_Bytes( U64   Bits)
 {
     return (Bits + 7) >> 3;
 }
-constexpr std::uint8_t Reverse_filter_mask(std::uint_fast8_t position)
+constexpr  U8 Reverse_filter_mask(std::uint_fast8_t position)
 {
     return 0x80 >> position;
 }
 
-constexpr std::uint64_t filter_mask(std::uint64_t position)
+constexpr U64   filter_mask( U64   position)
 {
     return 1ULL << position;
 };
 
-constexpr std::uint8_t Eight_bit_trailing_1_mask[9]{
+constexpr  U8 Eight_bit_trailing_1_mask[9]{
     0x0,
     0x1,
     0x3,
@@ -289,7 +289,7 @@ constexpr std::uint8_t Eight_bit_trailing_1_mask[9]{
 //
 struct ALLOCATION_DEALLOCATION_INFO
 {
-    std::uint8_t INFO{0};  // allocation and deallocation
+     U8 INFO{0};  // allocation and deallocation
                            // stratergies
                            // working
                            // |8||7||6||5||4||3||2||1|
@@ -306,7 +306,7 @@ struct ALLOCATION_DEALLOCATION_INFO
     {
         INFO = INFO & ~0x1;
 
-        INFO |= static_cast<std::uint8_t>(destructor);
+        INFO |= static_cast< U8 >(destructor);
     }
     inline void Set_Allocation_Type(Allocation_Type type)
     {
@@ -335,22 +335,22 @@ struct ALLOCATION_DEALLOCATION_INFO
 
 class ADVANCED_BITSET
 {
-    std::uint64_t*               BITS{nullptr};    // fast for large  data
-    std::uint8_t*                BITS_8{nullptr};  // fast for small data
+     U64  *               BITS{nullptr};    // fast for large  data
+     U8 *                BITS_8{nullptr};  // fast for small data
     ALLOCATION_DEALLOCATION_INFO alloc_info;
-    std::uint8_t  BLOCK8_Size{0};   // small byte only adressable memory
-    std::uint32_t BLOCK64_Size{0};  // for 8byte adressable memory
-    std::uint32_t Bitset_size{0};   // total number of bits
-    std::uint64_t offset_mask{
+    U8  BLOCK8_Size{0};   // small byte only adressable memory
+    U32   BLOCK64_Size{0};  // for 8byte adressable memory
+    U32   Bitset_size{0};   // total number of bits
+    U64   offset_mask{
         0};  // for small data of size smaller than byte/ not divisble by 8
              //
 
-    void          set_sizes(std::uint64_t Size);
-    std::uint64_t Get_position(std::uint32_t Block64,
-                               std::uint8_t  Block8,
-                               std::uint8_t  bit);
+    void          set_sizes( U64   Size);
+    U64   Get_position( U32  Block64,
+                               U8  Block8,
+                               U8  bit);
 
-    inline std::uint64_t get_actual_position(std::uint64_t position)
+    inline U64   get_actual_position( U64   position)
     {
         return Bitset_size - position - 1;
     }
@@ -360,18 +360,18 @@ class ADVANCED_BITSET
     ~ADVANCED_BITSET();
     ADVANCED_BITSET(BIT_SET* pointer,
 
-                    std::uint64_t Size,
+                    U64   Size,
 
                     Allocator_Defragmentation_Stratergy defra);
-    ADVANCED_BITSET(std::uint64_t size, Destructor destructor);
-    std::uint64_t byteoffset(std::uint64_t position);
-    const bool    operator[](std::uint64_t position);
+    ADVANCED_BITSET( U64   size, Destructor destructor);
+    U64   byteoffset( U64   position);
+    const bool    operator[]( U64   position);
     void          set_all();
     void          clear_all();
-    void          set(std::uint64_t position);
+    void          set( U64   position);
     bool          at(std ::uint64_t position);
-    void          clear(std::uint64_t position);
-    void          Toggle(std::uint64_t position);
+    void          clear( U64   position);
+    void          Toggle( U64   position);
     bool          last_bit();
     bool          first_bit();
     bool          check_set_any();
@@ -380,58 +380,58 @@ class ADVANCED_BITSET
     void          Set_trailling_1_to_0();
     std::int64_t  Get_lsb();
     std::int64_t  Get_msb();
-    std::uint64_t Get_mask_copy(ADVANCED_BITSET& data, ADVANCED_BITSET& filter);
-    void          Swap_bits(std::uint64_t position1, std::uint64_t position2);
-    std::uint64_t count_set_bits();
-    std::uint64_t count_clear_bits();
-    std::uint64_t count_consecutive_set_bits();
-    std::uint64_t count_consecutive_clear_bits();
-    std::tuple<std::uint64_t, std::uint64_t> MAX_consecutive_clear_bits();
-    std::tuple<std::uint64_t, std::uint64_t> MAX_consecutive_set_bits();
+    U64   Get_mask_copy(ADVANCED_BITSET& data, ADVANCED_BITSET& filter);
+    void          Swap_bits( U64   position1, U64   position2);
+    U64   count_set_bits();
+    U64   count_clear_bits();
+    U64   count_consecutive_set_bits();
+    U64   count_consecutive_clear_bits();
+    std::tuple< U64  ,  U64  > MAX_consecutive_clear_bits();
+    std::tuple< U64  ,  U64  > MAX_consecutive_set_bits();
 
-    std::tuple<std::uint64_t, std::uint64_t> MIN_consecutive_clear_bits();
-    std::tuple<std::uint64_t, std::uint64_t> MIN_consecutive_set_bits();
-    std::uint64_t                            Get_1_permutaion_count();
-    std::uint64_t                            Get_0_permutaion_count();
-    void Rotate_left(const std::uint16_t position);
-    void Rotate_right(const std::uint16_t position);
-    void Slide_left_by_0(const std::uint16_t position);
-    void Slide_Right_by_0(const std::uint16_t position);
-    void Slide_left_by_1(const std::uint16_t position);
-    void Slide_Right_by_1(const std::uint16_t position);
+    std::tuple< U64  ,  U64  > MIN_consecutive_clear_bits();
+    std::tuple< U64  ,  U64  > MIN_consecutive_set_bits();
+    U64                              Get_1_permutaion_count();
+    U64                              Get_0_permutaion_count();
+    void Rotate_left(const U16 position);
+    void Rotate_right(const U16 position);
+    void Slide_left_by_0(const U16 position);
+    void Slide_Right_by_0(const U16 position);
+    void Slide_left_by_1(const U16 position);
+    void Slide_Right_by_1(const U16 position);
 
     void reverse();
     void flip();
     bool check_parity();
-    void find_next_set_bit(std::uint64_t pos);
-    void find_next_clear_bit(std::uint64_t pos);
+    void find_next_set_bit( U64   pos);
+    void find_next_clear_bit( U64   pos);
 
-    ADVANCED_BITSET extract_bit_field(std::uint64_t start_pos,
-                                      std::uint64_t length);
+    ADVANCED_BITSET extract_bit_field( U64   start_pos,
+                                      U64   length);
     void            insert_bit_field(const ADVANCED_BITSET& field,
-                                     std::uint64_t          start_pos);
+                                     U64            start_pos);
     void            replace_bit_field(const ADVANCED_BITSET& field,
-                                      std::uint64_t          start_pos,
-                                      std::uint64_t          length);
+                                      U64            start_pos,
+                                      U64            length);
 
     // some necesary operator overlading
     ADVANCED_BITSET& operator+(ADVANCED_BITSET& bitset);
     ADVANCED_BITSET& operator-(ADVANCED_BITSET& bitset);
     ADVANCED_BITSET& operator=(ADVANCED_BITSET& bitset);
-    ADVANCED_BITSET& operator=(std::uint64_t&& unsigned_integer);
+    ADVANCED_BITSET& operator=( U64  && unsigned_integer);
     ADVANCED_BITSET& operator^(ADVANCED_BITSET& bitset);
     ADVANCED_BITSET& operator&(ADVANCED_BITSET& bitset);
     ADVANCED_BITSET& operator|(ADVANCED_BITSET& bitset);
 
-    ADVANCED_BITSET& operator^(std::uint64_t&& uinsigned_integer);
-    ADVANCED_BITSET& operator&(std::uint64_t&& unsigned_integer);
-    ADVANCED_BITSET& operator|(std::uint64_t&& unsigned_integer);
-    ADVANCED_BITSET& operator^(std::uint64_t& uinsigned_integer);
-    ADVANCED_BITSET& operator&(std::uint64_t& unsigned_integer);
+    ADVANCED_BITSET& operator^( U64  && uinsigned_integer);
+    ADVANCED_BITSET& operator&( U64  && unsigned_integer);
+    ADVANCED_BITSET& operator|( U64  && unsigned_integer);
+    ADVANCED_BITSET& operator^( U64  & uinsigned_integer);
+    ADVANCED_BITSET& operator&( U64  & unsigned_integer);
 
     ADVANCED_BITSET& operator~();
-    ADVANCED_BITSET  operator<<(std::uint64_t shift_amount);
-    ADVANCED_BITSET  operator>>(std::uint64_t shift_amount);
+    ADVANCED_BITSET  operator<<( U64   shift_amount);
+    ADVANCED_BITSET  operator>>( U64   shift_amount);
 
     friend bool operator<(const ADVANCED_BITSET& lhs,
                           const ADVANCED_BITSET& rhs);
@@ -456,7 +456,7 @@ inline bool operator==(const ADVANCED_BITSET& lhs, const ADVANCED_BITSET& rhs)
 
     if (std::memcmp(lhs.BITS,
                     rhs.BITS,
-                    sizeof(std::uint8_t) * Bits_to_Bytes(lhs.Bitset_size)))
+                    sizeof( U8 ) * Bits_to_Bytes(lhs.Bitset_size)))
         return true;
     else
     {

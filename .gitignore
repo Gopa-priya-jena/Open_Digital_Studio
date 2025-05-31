@@ -32,9 +32,13 @@
 *.app
 
 # build files
-build
-test_build
-.cache
+build_linux/
+build_windows/
+.cache/
+test_build_linux/
+test_build_windows/
+.vs/
 
 # compile db
 compile_commands.json
+sgconfig.yml

@@ -1,25 +1,57 @@
-# see https://clang.llvm.org/docs/ClangFormatStyleOptions.html
+
+# Format Style Options - Created with Clang Power Tools
 ---
-BasedOnStyle: google
-IndentWidth: 4
-ColumnLimit: 80
-BreakBeforeBraces: Allman
-UseTab: Never
-SortIncludes: false
-PointerAlignment: Left
-IndentBracedNamespace: true
-# The way to wrap ternary operators.
-# Options: Chop, NewLine, SameLine
-TernaryOperatorWrapStyle: Chop # How to handle line breaks for ternary operators.
-AllowShortFunctionsOnASingleLine: false
-AllowShortLoopsOnASingleLine: false
 AlignAfterOpenBracket: Align
+AlignConsecutiveAssignments: None
+AlignConsecutiveBitFields: None
 AlignConsecutiveDeclarations: true
+AlignConsecutiveMacros: AcrossEmptyLinesAndComments
+AlignEscapedNewlines: Right
 AlignOperands: true
+AlignTrailingComments: true
+AllowAllArgumentsOnNextLine: true
+AllowAllConstructorInitializersOnNextLine: true
 AllowAllParametersOfDeclarationOnNextLine: true
-AlwaysBreakAfterReturnType: TopLevel
-EmptyLineBeforeAccessModifier: Alway
+AllowShortBlocksOnASingleLine: Never
+AllowShortCaseLabelsOnASingleLine: false
+AllowShortLambdasOnASingleLine: None
+AllowShortEnumsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: false
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortLoopsOnASingleLine: false
+AlwaysBreakAfterReturnType: None
+AlwaysBreakBeforeMultilineStrings: true
 AlwaysBreakTemplateDeclarations: Yes
-BinPackParameters: false
-BinPackArguments: false
-KeepEmptyLinesAtTheStartOfBlocks: false
+AttributeMacros: 
+  - __capability
+BasedOnStyle: LLVM
+BitFieldColonSpacing: After
+BreakBeforeBraces: Allman
+BreakInheritanceList: BeforeColon
+BreakBeforeConceptDeclarations: true
+BreakBeforeTernaryOperators: true
+ColumnLimit: 80
+CommentPragmas: '^ IWYU pragma:'
+CompactNamespaces: false
+Cpp11BracedListStyle: true
+IndentPPDirectives: AfterHash
+IndentRequires: true
+IndentWidth: 2
+KeepEmptyLinesAtTheStartOfBlocks: true
+Language: Cpp
+LineEnding: LF
+NamespaceIndentation: All
+SpacesInCStyleCastParentheses: true
+SpacesInConditionalStatement: true
+SpacesInParentheses: true
+SpacesInSquareBrackets: true
+Standard: c++20
+UseCRLF: false
+UseTab: Never
+WhitespaceSensitiveMacros: 
+  - STRINGIZE
+  - PP_STRINGIZE
+  - BOOST_PP_STRINGIZE
+  - NS_SWIFT_NAME
+  - CF_SWIFT_NAME
+...

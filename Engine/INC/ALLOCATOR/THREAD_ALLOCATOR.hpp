@@ -5,8 +5,8 @@
 struct Function_alloc
 {
     void*         Base_pointer;
-    std::uint16_t Size;
-    std::uint16_t Request;
+    U16 Size;
+    U16 Request;
 };
 
 class THREAD_ALLOCATOR
@@ -16,7 +16,7 @@ class THREAD_ALLOCATOR
     void*         stack_head_pointer;
     void*         heap_top_pointer;
     uintptr_t     cache;
-    std::uint64_t Size;
+    U64   Size;
 
     uint64_t* free_list;
 
