@@ -35,10 +35,7 @@ tracy_config = (
 # """
 source = " -S .. "
 build_cmd = "cmake " + source + " -DCMAKE_BUILD_TYPE=DEBUG " + tracy_config
-
-test_cmd = build_cmd = (
-    "cmake " + source + "-DTEST=ON -DCMAKE_BUILD_TYPE=DEBUG " + tracy_config
-)
+test_cmd = "cmake " + source + "-DTEST=ON -DCMAKE_BUILD_TYPE=DEBUG " + tracy_config
 system_name = platform.system().lower()
 
 
@@ -96,7 +93,7 @@ def test():
     else:
         os.chdir(dir)
     print("PRESENT DIRECTOR IS ", os.getcwd())
-    if os.system(build_cmd) == 0:
+    if os.system(test_cmd) == 0:
         print("CMAKE SUCCEED \n")
         os.system(" mv compile_commands.json ..")
         print("\n========================= RUNNING MAKE ===================== \n")
@@ -125,12 +122,13 @@ def command():
     if n == 2:
         cmd = sys.argv[1]
     else:
-        cmd = input("enter action\n")
-    if cmd == "build" or cmd == "":
+        cmd = 0
+        cmd = int(input("Enter action\n1. Build \n2. Test\n "))
+    if cmd == 1 or cmd == 0:
         build()
-    elif cmd == "test":
+    elif cmd == 2:
         test()
-    elif cmd == "rapid":
+    elif cmd == 3:
         rapid()
 
 
