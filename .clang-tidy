@@ -4,7 +4,6 @@ Checks: >
   google-*,
   misc-*,
   performance-*,
-  readability-*,
   -google-readability-namespace-comments,
   -google-runtime-int,
   -google-runtime-references,

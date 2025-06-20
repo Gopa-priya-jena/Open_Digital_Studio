@@ -1,7 +1,7 @@
 #pragma once
 #include <array>
 
-#include <DATA_STRUCTURE/Types.hpp>
+#include <Types.hpp> 
 namespace OS::INFO
 {
 

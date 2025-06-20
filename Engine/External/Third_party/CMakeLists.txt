@@ -55,10 +55,3 @@ option(TRACY_LIBBACKTRACE_ELF_DYNLOAD_SUPPORT
 option(TRACY_VERBOSE "Enable verbose output" ON)
 option(TRACY_DEMANGLE "Enable symbol demangling" OFF)
 
-add_subdirectory(tracy)
-MESSAGE("FOUND TRACY \n")
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/tracy/public)
-target_include_directories(Open_Digital_Studio_Engine PUBLIC
-                            ${CMAKE_CURRENT_SOURCE_DIR}/tracy/public)
-target_sources(Open_Digital_Studio_Engine PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/tracy/public/TracyClient.cpp)
-target_link_libraries(Open_Digital_Studio_Engine PUBLIC Tracy::TracyClient)

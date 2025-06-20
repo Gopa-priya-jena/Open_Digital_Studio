@@ -1,6 +1,6 @@
 #include <ALGORITHMS/strings.hpp>
 #include <DATA_STRUCTURE/Map.hpp>
-#include <DATA_STRUCTURE/Types.hpp>
+#include <Types.hpp> 
 #include <DEBUG.hpp>
 #include <cmath>
 namespace ALGORITHM

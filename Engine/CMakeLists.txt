@@ -11,7 +11,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_CXX_EXTENSIONS ON)
-
+if(CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU")
+  set(CMAKE_CXX_FLAGS "-march=native -mavx2")
+endif()
 # some function that helps in devlopment proceess
 function(file_list NAME)
   message("\n THE LIST OF ${NAME} FILES ARE \n")

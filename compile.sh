@@ -1,14 +1,13 @@
 #!/usr/bin/bash
-
 clear
 cd build_linux/
-echo -e "\n \n \n  entering build dir \n \n \n "
-echo -e "\n \n \n ========================= RUNNING NINJA ===================== \n \n \n"
-
+echo -e "\n ENTERING BUILD DIR \n "
+echo -e "\n========================= RUNNING NINJA ===================== \n"
 if cmake --build .; then
   clear
-  echo -e "\n \n \n COMPILATION SUCCEED \n \n \n"
-  echo -e "\n \n \n RUNNING APP \n \n \n"
+
+  echo -e "COMPILATION SUCCEED \n"
+  echo -e "RUNNING APP \n"
 
   ./Open_Digital_Studio
 fi

@@ -2,7 +2,7 @@
 #include <cstdint>
 #include <string_view>
 
-#include <DATA_STRUCTURE/Types.hpp>
+#include <Types.hpp> 
 enum class Binary_Storage : U8
 {
 

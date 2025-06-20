@@ -10,10 +10,13 @@ project(
     DESCRIPTION "Open_Digital_Studio is a game Engine"
     LANGUAGES CXX C
 )
-
+find_program(CCACHE_FOUND ccache)
+if(CCACHE_FOUND)
+    set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE ccache)
+    message( "+++++++++++++++++++++++CCACHE FOUND++++++++++++++++++++++++++++++++++++++++++++++")
+endif()
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-# set(CMAKE_CXX_FLAGS "-Werror  -g3")
 include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/Engine/INC
     ${CMAKE_CURRENT_SOURCE_DIR}/Engine/External

@@ -1,5 +1,5 @@
 
-#include <DATA_STRUCTURE/Types.hpp>
+#include <Types.hpp> 
 
 // use this to activate the osmemoru module
 #define OS_MEMORY_UNIT

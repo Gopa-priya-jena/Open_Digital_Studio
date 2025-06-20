@@ -1,5 +1,4 @@
-#include <ALGORITHMS/Algorithms.hpp>
-namespace ALGORITHM
-{
+#include <ALGORITHMS/ALGORITHMS.hpp>
+namespace ALGORITHM {
 
 }

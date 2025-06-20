@@ -35,6 +35,7 @@
 build_linux/
 build_windows/
 .cache/
+.idea/
 test_build_linux/
 test_build_windows/
 .vs/

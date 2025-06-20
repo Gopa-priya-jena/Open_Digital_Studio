@@ -1,40 +1,37 @@
-
-# Format Style Options - Created with Clang Power Tools
----
-AlignAfterOpenBracket: Align
-AlignConsecutiveAssignments: None
-AlignConsecutiveBitFields: None
-AlignConsecutiveDeclarations: true
+# AlignAfterOpenBracket: Align
+BasedOnStyle: Google
+AlignConsecutiveAssignments: true
+AlignConsecutiveBitFields: true
+# AlignConsecutiveDeclarations: true
 AlignConsecutiveMacros: AcrossEmptyLinesAndComments
-AlignEscapedNewlines: Right
+# AlignEscapedNewlines: Right
 AlignOperands: true
-AlignTrailingComments: true
+AlignTrailingComments: false
 AllowAllArgumentsOnNextLine: true
 AllowAllConstructorInitializersOnNextLine: true
 AllowAllParametersOfDeclarationOnNextLine: true
-AllowShortBlocksOnASingleLine: Never
-AllowShortCaseLabelsOnASingleLine: false
-AllowShortLambdasOnASingleLine: None
-AllowShortEnumsOnASingleLine: false
-AllowShortFunctionsOnASingleLine: false
-AllowShortIfStatementsOnASingleLine: Never
+AllowShortCaseLabelsOnASingleLine: true
+AllowShortLambdasOnASingleLine: All
+AllowShortEnumsOnASingleLine: true
+AllowShortFunctionsOnASingleLine: All
 AllowShortLoopsOnASingleLine: false
 AlwaysBreakAfterReturnType: None
 AlwaysBreakBeforeMultilineStrings: true
 AlwaysBreakTemplateDeclarations: Yes
-AttributeMacros: 
-  - __capability
-BasedOnStyle: LLVM
-BitFieldColonSpacing: After
-BreakBeforeBraces: Allman
+BinPackParameters: false
+BreakBeforeBraces: Stroustrup
 BreakInheritanceList: BeforeColon
+BreakStringLiterals: true
+AttributeMacros:
+  - __capability
+BitFieldColonSpacing: After
 BreakBeforeConceptDeclarations: true
-BreakBeforeTernaryOperators: true
-ColumnLimit: 80
-CommentPragmas: '^ IWYU pragma:'
+BreakTemplateDeclarations: Yes
+PenaltyBreakTemplateDeclaration: 1
+ColumnLimit: 1000
+CommentPragmas: "^ IWYU pragma:"
 CompactNamespaces: false
-Cpp11BracedListStyle: true
-IndentPPDirectives: AfterHash
+IndentPPDirectives: BeforeHash
 IndentRequires: true
 IndentWidth: 2
 KeepEmptyLinesAtTheStartOfBlocks: true
@@ -45,13 +42,12 @@ SpacesInCStyleCastParentheses: true
 SpacesInConditionalStatement: true
 SpacesInParentheses: true
 SpacesInSquareBrackets: true
-Standard: c++20
 UseCRLF: false
 UseTab: Never
-WhitespaceSensitiveMacros: 
+SpacesInAngles: true
+WhitespaceSensitiveMacros:
   - STRINGIZE
   - PP_STRINGIZE
   - BOOST_PP_STRINGIZE
   - NS_SWIFT_NAME
   - CF_SWIFT_NAME
-...

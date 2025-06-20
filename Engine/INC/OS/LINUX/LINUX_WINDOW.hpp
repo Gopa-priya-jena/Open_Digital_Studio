@@ -2,7 +2,7 @@
 #include <Define.hpp>
 #if ODS_LINUX
 
-#  include <DATA_STRUCTURE/Types.hpp>
+#include <Types.hpp> 
 #  include <OS/LINUX/LINUX_X11_Platform.hpp>
 // this is needed as  linux has two display server x11 nad wayland
 //
