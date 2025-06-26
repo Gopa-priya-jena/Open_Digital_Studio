@@ -1,4 +1,3 @@
-#include <ALGORITHMS/ALGORITHMS.hpp>
 #include <Define.hpp>
 #include <cstring>
 #include <string>
@@ -6,6 +5,7 @@
 
 #include "DEBUG.hpp"
 #if ODS_LINUX
+  #include <ALGORITHMS/ALGORITHMS.hpp>
   #include <OS/LINUX/LINUX_INFO.hpp>
   #include <OS/OS_INFO.hpp>
   #include <OS/OS_SHELL.hpp>
@@ -164,7 +164,7 @@ namespace OS {
       print_info( info );
       return info;
     }
-
+    // void cpu_info( cpu_info &info ) {}
   }  // namespace INFO
 
 }  // namespace OS

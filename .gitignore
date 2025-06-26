@@ -33,6 +33,8 @@
 
 # build files
 build_linux/
+mingw_build/
+mingw_build_test/
 build_windows/
 .cache/
 .idea/
@@ -42,4 +44,5 @@ test_build_windows/
 
 # compile db
 compile_commands.json
+compile_commands.jsona
 sgconfig.yml

@@ -17,6 +17,10 @@ if(CCACHE_FOUND)
         "+++++++++++++++++++++++CCACHE FOUND++++++++++++++++++++++++++++++++++++++++++++++"
     )
 endif()
+# if(MSVC)
+#     target_compile_options(<target> PUBLIC "/ZI")
+#     target_link_options(<target> PUBLIC "/INCREMENTAL")
+# endif()
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 include_directories(
