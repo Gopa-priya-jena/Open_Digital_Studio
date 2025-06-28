@@ -2,3 +2,6 @@
 	path = Engine/External/Debug_profiler
 	url = https://github.com/Gopa-priya-jena/DEBUG_profiler.git
 
+[submodule "Test/External/GTest "]
+	path = "Test/External/GTest "
+	url = https://github.com/google/googletest.git
