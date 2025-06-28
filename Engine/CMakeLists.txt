@@ -11,9 +11,18 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_CXX_EXTENSIONS ON)
+
+if(CCACHE_FOUND)
+  set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE ccache)
+  message(
+        "+++++++++++++++++++++++CCACHE FOUND++++++++++++++++++++++++++++++++++++++++++++++"
+    )
+endif()
+
 if(CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU")
   set(CMAKE_CXX_FLAGS "-march=native -mavx2")
 endif()
+
 # some function that helps in devlopment proceess
 function(file_list NAME)
   message("\n THE LIST OF ${NAME} FILES ARE \n")
@@ -101,17 +110,21 @@ file(
 file_list("HEADER FILES ARE" ${HEADER_file})
 
 set(SOURCE_files)
+
 list(APPEND SOURCE_files ${HEADER_file} ${SOURCE_file})
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/External/Debug_profiler)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/External/Debug_profiler/inc/)
+
 # adding External packages
 add_library(Open_Digital_Studio_Engine ${SOURCE_files})
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/INC/)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/External/Debug_profiler/)
+
 # Adding subdirectories
 # add_subdirectory(External/Third_party)
 target_include_directories(Open_Digital_Studio_Engine PRIVATE ${INCLUDE_DIRS})
 target_link_libraries(
     Open_Digital_Studio_Engine
-    PRIVATE ${LIBRARIES} DEBUG_Profiler
+    PRIVATE ${LIBRARIES}
+    PUBLIC DEBUG_Profiler
 )

@@ -1,7 +1,12 @@
 #include <Define.hpp>
 #if ODS_LINUX
 
-#define LINUX_MEMORY_VARIABLE
-#define LINUX_MEMORY_PROCESS
+  #include <features.h>
+  #include <linux/prctl.h>
+
+  #define LINUX_ALLOCA( X ) alloca( X );
+#else
+
+  #define LINUX_ALLOCA( X )
 
 #endif

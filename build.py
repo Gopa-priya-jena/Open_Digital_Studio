@@ -55,27 +55,38 @@ mingw_win32_linux_settings = (
 
 # generator selaction
 
-generator = " "
-# if system_name == "windows":
-#     generator = "-G Ninja "
+
+def generator():
+    response = input("Do you want to build via ninja  Y/N")
+    if response == "Y" or response == "y":
+        return " -G Ninja "
+    else:
+        return " "
+
+
 #
-source = "  .. "
+def source():
+    return "  .. "
 
 
 # buid  commmand
-build_cmd = "cmake " + source + generator + " -DCMAKE_BUILD_TYPE=DEBUG " + tracy_config
+# build_cmd = "cmake " + source + generator + " -DCMAKE_BUILD_TYPE=DEBUG " + tracy_config
 
 
 # test commmand
 test_cmd = (
-    "cmake " + source + generator + "-DTEST=ON -DCMAKE_BUILD_TYPE=DEBUG " + tracy_config
+    "cmake "
+    + source()
+    # + generator()
+    + "-DTEST=ON -DCMAKE_BUILD_TYPE=DEBUG "
+    + tracy_config
 )  # + tracy_config
 
 
 # mingw build command
 build_cmd_mingw = (
     "x86_64-w64-mingw32-cmake  "
-    + source
+    + source()
     + mingw_win32_linux_settings
     + " -DTEST=ON -DCMAKE_BUILD_TYPE=DEBUG "
     + tracy_config
@@ -107,11 +118,35 @@ def build_dir():
         return "build_linux"
 
 
-def test_dir():
-    if system_name == "windows":
-        return "test_build_windows"
-    else:
-        return "test_build_linux"
+def build_cmd():
+    cmd = "cmake " + source()
+    response = input("\nDo you want to build tests  Y/N \n")
+    if response == "Y" or response == "y" or response == "":
+        cmd = cmd + " -DTEST=ON -DCMAKE_BUILD_TYPE=DEBUG "
+    cmd = cmd + tracy_config
+    if system_name != "linux":
+        cmd = cmd + generator()
+    return cmd
+
+
+def execute():
+    clear_terminal()
+    response = input("\nDo you want to run tests  Y/N \n")
+    if response == "Y" or response == "y" or response == "":
+        if os.path.exists("./test"):
+            print("Test is  build sucessfull")
+            os.execlp("./test", "./test")
+        else:
+            print("Test is not build")
+    # clear_terminal()
+    response = input("\nDo you want to run app  Y/N \n")
+    if response == "Y" or response == "y":
+        if os.path.exists("./Open_Digital_Studio"):
+            print(" ODS build sucessfull")
+            os.execlp("./Open_Digital_Studio", "./Open_Digital_Studio")
+        else:
+            print("build failed")
+    return
 
 
 def build():
@@ -120,7 +155,8 @@ def build():
         os.mkdir(dir)
     os.chdir(dir)
     print("PRESENT DIRECTOR IS ", os.getcwd())
-    if os.system(build_cmd) == 0:
+    cmd = build_cmd()
+    if os.system(cmd) == 0:
         print("CMAKE SUCCEED \n")
         # os.system(" mv compile_commands.json ..")
         move("compile_commands.json", "..")
@@ -128,39 +164,9 @@ def build():
         print("\n========================= RUNNING MAKE ===================== \n")
         if os.system("cmake --build . --clean-first -j256") == 0:
             print("COMPILATION SUCCEED \n")
-            print("RUNNING APP  \n")
-            if os.path.exists("./Open_Digital_Studio"):
-                print("build sucessfull")
-                os.execlp("./Open_Digital_Studio", "./Open_Digital_Studio")
-            else:
-                print("build failed")
-        else:
-            print("cmake  build command failed")
-    else:
-        print("cmake failed")
-    return
-
-
-def test():
-    dir = test_dir()
-    if not os.path.exists(dir):
-        os.mkdir(dir)
-    os.chdir(dir)
-    print("PRESENT DIRECTOR IS ", os.getcwd())
-    print("Executed commnad", test_cmd)
-    if os.system(test_cmd) == 0:
-        print("CMAKE SUCCEED \n")
-        move("compile_commands.json", "..")
-        clear_terminal()
-        print("\n========================= RUNNING MAKE ===================== \n")
-        if os.system("cmake --build . -j128") == 0:
-            print("COMPILATION SUCCEED \n")
-            print("RUNNING APP  \n")
-            if os.path.exists("./test"):
-                print("build sucessfull")
-                os.execlp("./test", "./test")
-            else:
-                print("build failed")
+            print("Executing ............  \n")
+            clear_terminal()
+            execute()
         else:
             print("cmake  build command failed")
     else:
@@ -204,12 +210,12 @@ def command():
     else:
         cmd = 0
         clear_terminal()
-        cmd = int(input("Enter action\n1. Build \n2. Test\n3. Mingw_win32\n "))
+        cmd = int(
+            input("Enter action\n1. Build \n2. Mingw_win32\n\n\n Your Response: ")
+        )
     if cmd == 1 or cmd == 0:
         build()
     elif cmd == 2:
-        test()
-    elif cmd == 3:
         build_mingw()
 
 

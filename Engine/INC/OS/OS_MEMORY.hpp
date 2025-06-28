@@ -1,43 +1,27 @@
-
-#include <Types.hpp> 
-
-// use this to activate the osmemoru module
-#define OS_MEMORY_UNIT
-#ifdef OS_MEMORY_UNIT
-
-#  pragma once
+#pragma once
+#include <ALLOCATOR/MASTER_ALLOCATOR/mem_internals.hpp>
+#include <OS/LINUX/LINUX_MEMORY.hpp>
+#include <OS/WINDOWS/WINDOWS_MEMORY.hpp>
+#include <Types.hpp>
 
 // the main goal of this header is to provide
 // os level  imlementation of various memory
-// requirment  ,this is not intened  to be  included any whwere else
+// requirment  ,this is not intened  to be  included anywhwere else
 // please  take carefull action here
 //
+
 //
+/// INFO: keep these functional and simple
 //
-// #include <>
+namespace OS {
+#define ALLOCA( X ) LINUX_ALLOCA( X ) WINDOWS_ALLOCA( X )
 
-#  include <cstdint>
-struct memory_orders
-{
-  U64 size;
-  U16 numbers;
-};
-
-// it an not be functional
-// and sorry but nennds to be ojectoriented to be safe and  better
-
-#  define PLATFORM_MEMORY_VARIABLE LINUX_MEMORY_VARIABLE
-#  define PLATFORM_MEMORY_PROCESS  LINUX_MEMORY_PROCESS
-
-void Get_Physically_contiguious_mem( memory_orders orders, void *pointers );
-void Get_contiguious_mem( memory_orders orders, void *pointers );
-void Get_Shared_contiguious_mem( memory_orders orders, void *pointers );
-void Get_contiguious_swapmem( memory_orders orders, void *pointers );
-
-void Get_Shared_contiguious_swapmem( memory_orders orders, void *pointers );
-void Get_noncontiguious_mem( memory_orders orders, U64 min_size,
-                             void *pointers );
-void Get_Shared_noncontiguious_mem( memory_orders orders, void *pointers );
-void Get_noncontiguious_swapmem( memory_orders orders, void *pointers );
-
-#endif
+  void Get_Physically_contiguious_mem( memory_orders orders, memory_allocations &allocation );
+  void Get_contiguious_mem( memory_orders orders, memory_allocations &allocation );
+  void Get_Shared_contiguious_mem( memory_orders orders, memory_allocations &allocation );
+  void Get_contiguious_swapmem( memory_orders orders, memory_allocations &allocation );
+  void Get_Shared_contiguious_swapmem( memory_orders orders, memory_allocations &allocation );
+  void Get_noncontiguious_mem( memory_orders orders, memory_allocations &allocation );
+  void Get_Shared_noncontiguious_mem( memory_orders orders, memory_allocations &allocation );
+  void Get_noncontiguious_swapmem( memory_orders orders, memory_allocations &allocation );
+}  // namespace OS

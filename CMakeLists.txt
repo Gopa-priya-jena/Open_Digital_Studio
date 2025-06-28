@@ -1,9 +1,5 @@
 cmake_minimum_required(VERSION 4.0.0)
-# set(CMAKE_CXX_COMPILER /usr/bin/clang++)
-# set(CMAKE_C_COMPILER /usr/bin/clang)
 
-# set(CMAKE_CXX_COMPILER /usr/bin/g++)
-# set(CMAKE_C_COMPILER /usr/bin/gcc)
 project(
     "Open_Digital_Studio"
     VERSION 1
@@ -38,22 +34,13 @@ list(
 )
 
 if(TEST)
-    add_executable(test test/test.cpp)
-    target_include_directories(test PUBLIC ${subdirectory_list})
-    target_link_libraries(test Open_Digital_Studio_Engine DEBUG_Profiler)
-
-    #target_link_options(test
-    #BEFORE PUBLIC -fsanitize=undefined PUBLIC -fsanitize=address )
-    #
-else()
-    add_executable(Open_Digital_Studio ${CMAKE_CURRENT_SOURCE_DIR}/APP/MAIN.cpp)
-    target_include_directories(Open_Digital_Studio PUBLIC ${subdirectory_list})
-    target_link_libraries(
-        Open_Digital_Studio
-        Open_Digital_Studio_Engine
-        DEBUG_Profiler
-    )
-    #   target_link_options(Open_Digital_Studio
-    #   BEFORE PUBLIC -fsanitize=undefined PUBLIC -fsanitize=address
-    # )
+    add_subdirectory(Test)
 endif()
+
+add_executable(Open_Digital_Studio ${CMAKE_CURRENT_SOURCE_DIR}/APP/MAIN.cpp)
+target_include_directories(Open_Digital_Studio PUBLIC ${subdirectory_list})
+target_link_libraries(
+    Open_Digital_Studio
+    Open_Digital_Studio_Engine
+    DEBUG_Profiler
+)

@@ -240,6 +240,7 @@ constexpr struct {
   U32 BRAND_STRING3      = 0x80000003;
   U32 BRAND_STRING4      = 0x80000004;
   U32 FEATURE_IDENTIFIER = 0x00000001;
+  // U32 
 
 } command;
 Cpu_Info_Collector::Cpu_Info_Collector()

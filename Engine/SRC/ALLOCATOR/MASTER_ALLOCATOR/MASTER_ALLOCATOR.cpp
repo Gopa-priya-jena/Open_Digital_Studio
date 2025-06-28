@@ -1,12 +1,8 @@
 #include <Define.hpp>
 #if ODS_LINUX
-
   #include <ALLOCATOR/MASTER_ALLOCATOR/MASTER_ALLOCATOR.hpp>
   #include <DATA_STRUCTURE/DATA_STRUCTURE.hpp>
-  #include <cstdint>
-
-  #include "DEBUG.hpp"
-  #include "OS/OS_INFO.hpp"
+  #include <OS/OS_INFO.hpp>
 
 MASTER_ALLOCATOR::MASTER_ALLOCATOR()
 {

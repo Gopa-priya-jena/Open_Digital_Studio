@@ -41,18 +41,22 @@ namespace ALGORITHM {
       std::string_view next_token( std::string_view ele );
       std::string_view prev_token( std::string_view ele );
 
-      void set_begin();
+      std::string_view next_token_p( std::string_view ele );
+      std::string_view prev_token_p( std::string_view ele );
 
+      void set_begin();
       void set_end();
+
       Token_iterator( std::string_view search_space, std::string_view search );
+      Token_iterator( std::string_view search_space, std::bitset< 256 > test );
 
       bool end();
       bool begin();
     };
 
-    I64 Str_to_int( std::string_view view );
+    U64 Str_to_uint( std::string_view view );
     F32 Str_to_F32( std::string_view view );
-
+    U64 Str_to_mem_size( std::string_view sv );
   }  // namespace STRING
 
 }  // namespace ALGORITHM
