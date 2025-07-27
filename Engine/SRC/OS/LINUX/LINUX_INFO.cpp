@@ -44,6 +44,19 @@ namespace OS {
         mem_info.overcommit = true;
       else
         mem_info.overcommit = false;
+
+      shell.exec( "ls /sys/kernel/mm/hugepages \n" );
+      TK = Token_iterator( shell.OUTPUT_view, "-\n" );
+
+      U64 page_size = Str_to_mem_size( TK.next_token( "hugepages" ) );
+      while ( !TK.end() ) {
+        TK.next_token();
+        U64 temp = Str_to_mem_size( TK.next_token() );
+
+        if ( temp > page_size ) page_size = temp;
+      }
+
+      mem_info.MAX_Huge_page_size = page_size;
     }
     void collect_cpu_info( OS::SHELL::OS_SHELL &shell, OS_cpu_info &info )
     {
@@ -120,7 +133,6 @@ namespace OS {
       ss << " L3_assoc, L3_LineSize, L3_setSize\t" << ( U64 )info.cpu_info.L3_ways << "\t" << ( U64 )info.cpu_info.L3_LineSize << "\t" << ( U64 )info.cpu_info.L3_setSize << std::endl;
       ss << " Physical_Address_Bits\t" << ( U64 )info.cpu_info.Physical_Address_Bits << std::endl;
       ss << " Virtual_Address_Bits\t" << ( U64 )info.cpu_info.Virtual_Address_Bits << std::endl;
-      ss << " TLB_size\t" << ( U64 )info.cpu_info.TLB_count << std::endl;
       ss << " cpu_MHz\t " << ( U64 )info.cpu_info.cpu_Max_MHz << std::endl;
       // memoryin
 
@@ -132,6 +144,7 @@ namespace OS {
       ss << "page_sie\t" << info.mem_info.page_size << std::endl;
       ss << "Huge_page_sie\t" << info.mem_info.Huge_page_size << std::endl;
       ss << "HugePages_Total\t" << info.mem_info.HugePages_Total << std::endl;
+      ss << "MAX HugePages \t" << info.mem_info.MAX_Huge_page_size << std::endl;
       ss << "HugePages_Free\t" << info.mem_info.HugePages_Free << std::endl;
       ss << "DirectMap1k\t" << info.mem_info.DirectMap4k << std::endl;
       ss << "DirectMap2M\t" << info.mem_info.DirectMap2M << std::endl;

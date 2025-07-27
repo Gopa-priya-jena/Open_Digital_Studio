@@ -34,6 +34,7 @@ list(
 )
 
 if(TEST)
+    enable_testing()
     add_subdirectory(Test)
 endif()
 

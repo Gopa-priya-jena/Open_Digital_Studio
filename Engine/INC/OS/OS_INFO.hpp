@@ -11,6 +11,7 @@ namespace OS::INFO {
     U64 Swap_busy;
     U64 Swap_free;
     U64 page_size;
+    U64 MAX_Huge_page_size;
     U64 Huge_page_size;
     U64 HugePages_Total;
     U64 HugePages_Free;
@@ -33,9 +34,7 @@ namespace OS::INFO {
     U32 L2_ways, L2_LineSize, L2_setSize;
     U32 L3_ways, L3_LineSize, L3_setSize;
     U16 Physical_Address_Bits, Virtual_Address_Bits;
-    U64 TLB_count;
-    U64 TLB_pagesize;
-    std::array< U8, cpu_Max_ / 2 > Topology;
+    // std::array< U8, cpu_Max_ / 2 > Topology;
     F64 cpu_Max_MHz, cpu_Mix_MHz;
     U32 Numa;
   };

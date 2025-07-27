@@ -6,36 +6,63 @@ import sys
 
 system_name = platform.system().lower()
 # tracy related config
+# (TRACY_ENABLE "Enable profiling"
+# (TRACY_ON_DEMAND "On-demand profiling"
+# (TRACY_CALLSTACK "Enforce callstack collection for tracy regions"
+# (TRACY_NO_CALLSTACK "Disable all callstack related functionality"
+# (TRACY_NO_CALLSTACK_INLINES "Disables the inline functions in callstacks"
+# (TRACY_ONLY_LOCALHOST "Only listen on the localhost interface"
+# (TRACY_NO_BROADCAST "Disable client discovery by broadcast to local network"
+# (TRACY_ONLY_IPV4 "Tracy will only accept connections on IPv4 addresses (disable IPv6)"
+# (TRACY_NO_CODE_TRANSFER "Disable collection of source code"
+# (TRACY_NO_CONTEXT_SWITCH "Disable capture of context switches"
+# (TRACY_NO_EXIT "Client executable does not exit until all profile data is sent to server"
+# (TRACY_NO_SAMPLING "Disable call stack sampling"
+# (TRACY_NO_VERIFY "Disable zone validation for C API"
+# (TRACY_NO_VSYNC_CAPTURE "Disable capture of hardware Vsync events"
+# (TRACY_NO_FRAME_IMAGE  "Disable the frame image support and its thread"
+# (TRACY_NO_SYSTEM_TRACING  "Disable systrace sampling"
+# (TRACY_PATCHABLE_NOPSLEDS  "Enable nopsleds for efficient patching by system-level tools (e.g. rr)"
+# (TRACY_DELAYED_INIT "Enable delayed initialization of the library (init on first call)"
+# (TRACY_MANUAL_LIFETIME "Enable the manual lifetime management of the profile"
+# (TRACY_FIBERS "Enable fibers support"
+# (TRACY_NO_CRASH_HANDLER "Disable crash handling"
+# (TRACY_TIMER_FALLBACK "Use lower resolution timers"
+# (TRACY_LIBUNWIND_BACKTRACE "Use libunwind backtracing where supported"
+# (TRACY_SYMBOL_OFFLINE_RESOLVE "Instead of full runtime symbol resolution, only resolve the image path and offset to enable offline symbol resolution"
+# (TRACY_LIBBACKTRACE_ELF_DYNLOAD_SUPPORT "Enable libbacktrace to support dynamically loaded elfs in symbol resolution resolution after the first symbol resolve operation"
+# (TRACY_DEBUGINFOD "Enable debuginfod support"
+
 
 tracy_config = (
-    "-DTRACY_ENABLE=OFF "
-    "-DTRACY_ON_DEMAND=OFF "
-    "-DTRACY_CALLSTACK=OFF "
-    "-DTRACY_NO_CALLSTACK=OFF "
-    "-DTRACY_NO_CALLSTACK_INLINES=OFF "
-    "-DTRACY_ONLY_LOCALHOST=ON "
-    "-DTRACY_NO_BROADCAST=OFF "
-    "-DTRACY_ONLY_IPV4=OFF "
-    "-DTRACY_NO_CODE_TRANSFER=ON "
-    "-DTRACY_NO_CONTEXT_SWITCH=ON "
-    "-DTRACY_NO_EXIT=OFF "
-    "-DTRACY_NO_SAMPLING=ON "
-    "-DTRACY_NO_VERIFY=OFF "
-    "-DTRACY_NO_VSYNC_CAPTURE=OFF "
-    "-DTRACY_NO_FRAME_IMAGE=OFF "
-    "-DTRACY_NO_SYSTEM_TRACING=OFF "
-    "-DTRACY_PATCHABLE_NOPSLEDS=OFF "
-    "-DTRACY_DELAYED_INIT=OFF "
-    "-DTRACY_MANUAL_LIFETIME=OFF "
-    "-DTRACY_FIBERS=OFF "
-    "-DTRACY_NO_CRASH_HANDLER=OFF "
-    "-DTRACY_TIMER_FALLBACK=OFF "
-    "-DTRACY_LIBUNWIND_BACKTRACE=OFF "
-    "-DTRACY_SYMBOL_OFFLINE_RESOLVE=OFF "
-    "-DTRACY_LIBBACKTRACE_ELF_DYNLOAD_SUPPORT=OFF "
-    "-DTRACY_DEBUGINFOD=ON "
-    "-DTRACY_VERBOSE=ON "
-    "-DTRACY_DEMANGLE=OFF "
+    "-DTRACY_ENABLE=OFF "  #  # (TRACY_ENABLE "Enable profiling
+    "-DTRACY_ON_DEMAND=ON "  #  # (TRACY_ON_DEMAND "On-demand profiling"
+    "-DTRACY_CALLSTACK=ON "  #  # (TRACY_CALLSTACK "Enforce callstack collection for tracy regions"
+    "-DTRACY_NO_CALLSTACK=OFF "  #  # (TRACY_NO_CALLSTACK "Disable all callstack related functionality"
+    "-DTRACY_NO_CALLSTACK_INLINES=OFF "  #  # (TRACY_NO_CALLSTACK_INLINES "Disables the inline functions in callstacks"
+    "-DTRACY_ONLY_LOCALHOST=ON "  #  # (TRACY_ONLY_LOCALHOST "Only listen on the localhost interface"
+    "-DTRACY_NO_BROADCAST=OFF "  #  # (TRACY_NO_BROADCAST "Disable client discovery by broadcast to local network"
+    "-DTRACY_ONLY_IPV4=OFF "  #  # (TRACY_ONLY_IPV4 "Tracy will only accept connections on IPv4 addresses (disable IPv6)"
+    "-DTRACY_NO_CODE_TRANSFER=OFF "  #  # (TRACY_NO_CODE_TRANSFER "Disable collection of source code"
+    "-DTRACY_NO_CONTEXT_SWITCH=OFF "  #  # (TRACY_NO_CONTEXT_SWITCH "Disable capture of context switches"
+    "-DTRACY_NO_EXIT=OFF "  #  # (TRACY_NO_EXIT "Client executable does not exit until all profile data is sent to server"
+    "-DTRACY_NO_SAMPLING=ON "  #  # (TRACY_NO_SAMPLING "Disable call stack sampling"
+    "-DTRACY_NO_VERIFY=OFF "  #  # (TRACY_NO_VERIFY "Disable zone validation for C API"
+    "-DTRACY_NO_VSYNC_CAPTURE=OFF "  #  # (TRACY_NO_VSYNC_CAPTURE "Disable capture of hardware Vsync events"
+    "-DTRACY_NO_FRAME_IMAGE=OFF "  #  # (TRACY_NO_FRAME_IMAGE  "Disable the frame image support and its thread"
+    "-DTRACY_NO_SYSTEM_TRACING=OFF "  #  # (TRACY_NO_SYSTEM_TRACING  "Disable systrace sampling"
+    "-DTRACY_PATCHABLE_NOPSLEDS=ON "  #  # (TRACY_PATCHABLE_NOPSLEDS  "Enable nopsleds for efficient patching by system-level tools (e.g. rr)"
+    "-DTRACY_DELAYED_INIT=ON "  #  # (TRACY_DELAYED_INIT "Enable delayed initialization of the library (init on first call)"
+    "-DTRACY_MANUAL_LIFETIME=OFF "  #  # (TRACY_MANUAL_LIFETIME "Enable the manual lifetime management of the profile"
+    "-DTRACY_FIBERS=ON "  #  # (TRACY_FIBERS "Enable fibers support"
+    "-DTRACY_NO_CRASH_HANDLER=ON "  #  # (TRACY_NO_CRASH_HANDLER "Disable crash handling"
+    "-DTRACY_TIMER_FALLBACK=OFF "  #  # (TRACY_TIMER_FALLBACK "Use lower resolution timers"
+    "-DTRACY_LIBUNWIND_BACKTRACE=ON "  #  # (TRACY_LIBUNWIND_BACKTRACE "Use libunwind backtracing where supported"
+    "-DTRACY_SYMBOL_OFFLINE_RESOLVE=ON "  #  # (TRACY_SYMBOL_OFFLINE_RESOLVE "Instead of full runtime symbol resolution, only resolve the image path and offset to enable offline symbol resolution"
+    "-DTRACY_LIBBACKTRACE_ELF_DYNLOAD_SUPPORT=ON "  #  # (TRACY_LIBBACKTRACE_ELF_DYNLOAD_SUPPORT "Enable libbacktrace to support dynamically loaded elfs in symbol resolution resolution after the first symbol resolve operation"
+    "-DTRACY_DEBUGINFOD=ON "  #  # (TRACY_TIMER_FALLBACK "Use lower resolution timers"
+    "-DTRACY_VERBOSE=ON "  #
+    "-DTRACY_DEMANGLE=OFF "  #
 )
 
 
@@ -90,6 +117,7 @@ build_cmd_mingw = (
     + mingw_win32_linux_settings
     + " -DTEST=ON -DCMAKE_BUILD_TYPE=DEBUG "
     + tracy_config
+    + """ -DCMAKE_CXX_FLAGS=" -std=c++23 -lstdc++exp -g -fno-omit-frame-pointer --export-dynmaic -rdynamic -fsanitize=address " """
 )
 
 
@@ -119,7 +147,12 @@ def build_dir():
 
 
 def build_cmd():
-    cmd = "cmake " + source()
+    cmd = (
+        "cmake "
+        + source()
+        + """ -DCMAKE_CXX_FLAGS=" -std=c++23 -lstdc++exp -g -fno-omit-frame-pointer  " """
+    )
+
     response = input("\nDo you want to build tests  Y/N \n")
     if response == "Y" or response == "y" or response == "":
         cmd = cmd + " -DTEST=ON -DCMAKE_BUILD_TYPE=DEBUG "
@@ -133,9 +166,9 @@ def execute():
     clear_terminal()
     response = input("\nDo you want to run tests  Y/N \n")
     if response == "Y" or response == "y" or response == "":
-        if os.path.exists("./test"):
+        if os.path.exists("./Unit_Tests"):
             print("Test is  build sucessfull")
-            os.execlp("./test", "./test")
+            os.execlp("./Unit_Tests", "./Unit_Tests")
         else:
             print("Test is not build")
     # clear_terminal()

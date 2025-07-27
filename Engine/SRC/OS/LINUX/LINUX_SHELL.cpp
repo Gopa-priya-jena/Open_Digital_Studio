@@ -39,7 +39,7 @@ namespace OS::SHELL {
 
   OS_SHELL::OS_SHELL( SHELL_Type type )
   {
-    // FUNCTION_PROFILE;
+    FUNCTION_PROFILE;
     I32 READ_temp[ 2 ];
     I32 WRITE_temp[ 2 ];  // stdin for bash / other shell
     I32 ERROR_temp[ 2 ];
@@ -118,7 +118,7 @@ namespace OS::SHELL {
       }
 
       if ( posix_spawnp( &SHELL_Linux.processID, path, &file_actions, &attributes, static_cast< char ** >( const_cast< char ** >( argV ) ), environ ) == 0 ) {
-        LOG( "SHELLL ACTIVE" )
+        // LOG( "SHELLL ACTIVE" )
         // clossing file
         close( WRITE_temp[ 0 ] );
         close( READ_temp[ 1 ] );
@@ -199,7 +199,7 @@ namespace OS::SHELL {
   OS_SHELL::~OS_SHELL()
 
   {
-    // FUNCTION_PROFILE;
+    FUNCTION_PROFILE;
 
     Input( "exit\n" );
     I32 status = 0;
@@ -258,9 +258,9 @@ namespace OS::SHELL {
     } while ( ( write_pos != command.size() ) );
 
     if ( res != -1 ) {
-      LOG_DEBUG( "write was sucessfull ", command );
+      // LOG_DEBUG( "write was sucessfull ", command );
       if ( res == command.size() ) {
-        LOG_DEBUG( "sucessfull written  ", res );
+        // LOG_DEBUG( "sucessfull written  ", res );
         return true;
       }
       return false;
@@ -303,7 +303,7 @@ namespace OS::SHELL {
 
     FUNCTION_PROFILE;
     if ( read_avail() ) {
-      LOG( "ok got pollin " )
+      // LOG( "ok got pollin " )
       char flush_buff[ 1024 ];
       ssize_t val = 1;
       while ( val && read_avail() ) {
@@ -378,13 +378,13 @@ namespace OS::SHELL {
   }
   bool OS_SHELL::write_avail()
   {
-    // //FUNCTION_PROFILE
+    FUNCTION_PROFILE
     update_Eventpoll();
     return ( SHELL_Linux.Eventpoll[ 1 ].revents & POLLOUT );
   }
   bool OS_SHELL::error_avail()
   {
-    // //FUNCTION_PROFILE
+    FUNCTION_PROFILE
     update_Eventpoll();
     return ( SHELL_Linux.Eventpoll[ 2 ].revents & POLLIN );
   }

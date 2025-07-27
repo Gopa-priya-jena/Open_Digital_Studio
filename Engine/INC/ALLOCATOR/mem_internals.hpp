@@ -1,19 +1,50 @@
 #pragma once
 #include <Types.hpp>
-
+#include <thread>
 //////////////////////////////////////
 // these are some necessary data structure
-///
+
+enum TLB_size {
+  page_1GB,
+  page_2mb,
+  page_sys,
+
+};
+
 struct memory_orders {
   U64 Quantity;
   U16 Order_count;
+  TLB_size page;
 };
 
 struct memory_allocations {
   U64 Quantity;
-  U32 success;
-  U32 Failure;
+  U16 Success;
+  U16 Failure;
   void* pointer_list[];
+};
+
+struct Pointer_List {
+  U64 SIZE;
+  U16 Count;
+  void* Pointers[];
+};
+
+struct Allocation_table {
+  Allocation_table* next = nullptr;
+  Pointer_List Alloaction_list;
+};
+struct Thread_allocation {
+
+  std::thread::id Thread_id{ 0 };
+  Allocation_table* Alloc_table = nullptr;
+};
+
+struct Thread_allocation_Tree {
+  U32 size;
+  U32 Table_count;
+  Thread_allocation_Tree* next;
+  Thread_allocation thread_allocation_table[];
 };
 
 // override

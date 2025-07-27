@@ -1,5 +1,5 @@
 #pragma once
-#include <ALLOCATOR/MASTER_ALLOCATOR/mem_internals.hpp>
+#include <ALLOCATOR/mem_internals.hpp>
 #include <OS/LINUX/LINUX_MEMORY.hpp>
 #include <OS/WINDOWS/WINDOWS_MEMORY.hpp>
 #include <Types.hpp>
@@ -16,12 +16,22 @@
 namespace OS {
 #define ALLOCA( X ) LINUX_ALLOCA( X ) WINDOWS_ALLOCA( X )
 
-  void Get_Physically_contiguious_mem( memory_orders orders, memory_allocations &allocation );
-  void Get_contiguious_mem( memory_orders orders, memory_allocations &allocation );
-  void Get_Shared_contiguious_mem( memory_orders orders, memory_allocations &allocation );
-  void Get_contiguious_swapmem( memory_orders orders, memory_allocations &allocation );
-  void Get_Shared_contiguious_swapmem( memory_orders orders, memory_allocations &allocation );
-  void Get_noncontiguious_mem( memory_orders orders, memory_allocations &allocation );
-  void Get_Shared_noncontiguious_mem( memory_orders orders, memory_allocations &allocation );
-  void Get_noncontiguious_swapmem( memory_orders orders, memory_allocations &allocation );
+  bool Alloc_Physically_contiguious_mem( memory_orders orders, memory_allocations &allocation );
+  bool Alloc_contiguious_mem( memory_orders orders, memory_allocations &allocation );
+  bool Alloc_Shared_contiguious_mem( memory_orders orders, memory_allocations &allocation );
+  bool Alloc_contiguious_swapmem( memory_orders orders, memory_allocations &allocation );
+  bool Alloc_Shared_contiguious_swapmem( memory_orders orders, memory_allocations &allocation );
+  bool Alloc_noncontiguious_mem( memory_orders orders, memory_allocations &allocation );
+  bool Alloc_Shared_noncontiguious_mem( memory_orders orders, memory_allocations &allocation );
+  bool Alloc_noncontiguious_swapmem( memory_orders orders, memory_allocations &allocation );
+
+  void Dealloc_Physically_contiguious_mem( memory_allocations &allocation );
+  void Dealloc_contiguious_mem( memory_allocations &allocation );
+  void Dealloc_Shared_contiguious_mem( memory_allocations &allocation );
+  void Dealloc_contiguious_swapmem( memory_allocations &allocation );
+  void Dealloc_Shared_contiguious_swapmem( memory_allocations &allocation );
+  void Dealloc_noncontiguious_mem( memory_allocations &allocation );
+  void Dealloc_Shared_noncontiguious_mem( memory_allocations &allocation );
+  void Dealloc_noncontiguious_swapmem( memory_allocations &allocation );
+
 }  // namespace OS
